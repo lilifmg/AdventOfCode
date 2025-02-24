@@ -26,15 +26,22 @@ right.Sort();
 Console.WriteLine($"Sorted Left: {string.Join(", ", left)}");
 Console.WriteLine($"Sorted Right: {string.Join(", ", right)}");
 
-List<int> diff = [];
+#pragma warning disable S125 // Sections of code should not be commented out
+
+// List<int> diff = [];
 int total = 0;
+
 
 for (int i = 0; i < left.Count; i++)
 {
-    int difference = Math.Abs(left[i] - right[i]);
+    total += right.Count(number => number.Equals(left[i])) * left[i];
+   /* int difference = Math.Abs(left[i] - right[i]);
     diff.Add(difference);
-    total += difference;
+    total += difference; */
 }
 
-Console.WriteLine($"Differences: {string.Join(", ", diff)}");
-Console.WriteLine($"Total Difference: {total}");
+//Console.WriteLine($"Differences: {string.Join(", ", diff)}");
+//Console.WriteLine($"Total Difference: {total}");
+Console.WriteLine($"Total Similar: {total}");
+
+#pragma warning restore S125 // Sections of code should not be commented out
