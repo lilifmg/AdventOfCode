@@ -22,7 +22,25 @@ foreach (var line in readFile)
 
     int lineIsSafe = IsSafe(elem);
 
-    
+    if (lineIsSafe == 1)
+    {
+        results.Add(lineIsSafe);
+        lista.Add(elem);
+        continue;
+    }
+    else
+    {
+        for (int j = 0; j < elem.Count; j++)
+        {
+            List<int> modifiedLevels = new(elem);
+            modifiedLevels.RemoveAt(j);
+            lineIsSafe = IsSafe(modifiedLevels);
+            if (lineIsSafe == 1)
+            {
+                break;
+            }
+        }
+    }
 
     results.Add(lineIsSafe);
     lista.Add(elem);
