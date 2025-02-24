@@ -38,59 +38,19 @@ for (int i = 0; i < rowCount; i++)
 int counter = 0;
 int counterX = 0;
 
-for (int y = 0; y < rowCount; y++)
+for (int y = 1; y < rowCount -1; y++)
 {
-    for (int x = 0; x < colCount; x++)
+    for (int x = 1; x < colCount-1; x++)
     {
-        if (matriz[y, x] == 'X')
+        if (matriz[y, x] == 'A')
         {
             counterX++;
             Console.WriteLine($"x: {x} y: {y} Matriz size: {colCount}");
 
-            // vertical north
-            if (y - 3 >= 0 && matriz[y - 1, x] == 'M' && matriz[y - 2, x] == 'A' && matriz[y - 3, x] == 'S')
-            {
-                counter++;
-            }
-
-            // diagonal NW
-            if (y - 3 >= 0 && x + 3 < colCount && matriz[y - 1, x + 1] == 'M' && matriz[y - 2, x + 2] == 'A' && matriz[y - 3, x + 3] == 'S')
-            {
-                counter++;
-            }
-
-            // horizontal east
-            if (x + 3 < colCount && matriz[y, x + 1] == 'M' && matriz[y, x + 2] == 'A' && matriz[y, x + 3] == 'S')
-            {
-                counter++;
-            }
-
-            // diagonal SE
-            if (y + 3 < rowCount && x + 3 < colCount && matriz[y + 1, x + 1] == 'M' && matriz[y + 2, x + 2] == 'A' && matriz[y + 3, x + 3] == 'S')
-            {
-                counter++;
-            }
-
-            // vertical south
-            if (y + 3 < rowCount && matriz[y + 1, x] == 'M' && matriz[y + 2, x] == 'A' && matriz[y + 3, x] == 'S')
-            {
-                counter++;
-            }
-
-            // diagonal SW
-            if (y + 3 < rowCount && x - 3 >= 0 && matriz[y + 1, x - 1] == 'M' && matriz[y + 2, x - 2] == 'A' && matriz[y + 3, x - 3] == 'S')
-            {
-                counter++;
-            }
-
-            // horizontal west
-            if (x - 3 >= 0 && matriz[y, x - 1] == 'M' && matriz[y, x - 2] == 'A' && matriz[y, x - 3] == 'S')
-            {
-                counter++;
-            }
-
-            // diagonal NE
-            if (y - 3 >= 0 && x - 3 >= 0 && matriz[y - 1, x - 1] == 'M' && matriz[y - 2, x - 2] == 'A' && matriz[y - 3, x - 3] == 'S')
+            if ((matriz[y - 1, x - 1] == 'M' && matriz[y + 1, x + 1] == 'S' ||
+            matriz[y - 1, x - 1] == 'S' && matriz[y + 1, x + 1] == 'M') &&
+           (matriz[y - 1, x + 1] == 'M' && matriz[y + 1, x - 1] == 'S' ||
+            matriz[y - 1, x + 1] == 'S' && matriz[y + 1, x - 1] == 'M'))
             {
                 counter++;
             }
