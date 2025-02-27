@@ -28,12 +28,12 @@ foreach (var line in lines)
 }
 
 int sum = toAnalyze
-    .Where(line => IsCorrectOrder(line, order))
-    .Select(line => GetMiddleValue(line))
-    .Sum();
+    .Where(line => !IsCorrectOrder(line, order)) 
+    .Select(line => FixOrder(line, order))    
+    .Select(line => GetMiddleValue(line))  
+    .Sum();         
 
 Console.WriteLine($"Soma: {sum}");
-    
 
 static bool IsCorrectOrder(string line, List<string> order)
 {
@@ -55,6 +55,33 @@ static bool IsCorrectOrder(string line, List<string> order)
 
     return true;
 }
+
+static string FixOrder(string line, List<string> order)
+{
+    var elements = line.Split(',').ToList();
+
+    elements.Sort((a, b) => CompareByRules(a, b, order));
+
+    return string.Join(",", elements);
+}
+
+static int CompareByRules(string a, string b, List<string> order)
+{
+    foreach (var rule in order)
+    {
+        var ruleParts = rule.Split('|');
+        if (ruleParts.Length < 2) continue;
+
+        string first = ruleParts[0], second = ruleParts[1];
+
+        if (a == first && b == second) return -1;
+
+        if (a == second && b == first) return 1;
+    }
+
+    return 0;
+}
+
 
 static int GetMiddleValue(string line)
 {
